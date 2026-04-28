@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/medical_cps.db:/app/backend/medical_cps.db
+    environment:
+      - DATABASE_URL=sqlite:///./medical_cps.db
+    networks:
+      - cps-network
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - cps-network
+
+  lstm_inference:
+    build: ./backend/ml
+    ports: ["8001:8001"]
+    volumes: ["./backend/ml:/app/models"]
+    environment:
+      MODEL_PATH: /app/models/lstm_ae.pt
+      NORM_STATS_PATH: /app/models/norm_stats.json
+      WINDOW_LEN: 30
+      FORECAST_STEPS: 5
+      MC_DROPOUT_PASSES: 20
+    networks:
+      - cps-network
+
+  cadre_engine:
+    build: ./backend
+    command: ["uvicorn", "cadre_main:app", "--host", "0.0.0.0", "--port", "8002"]
+    ports: ["8002:8002"]
+    depends_on: [lstm_inference, backend]
+    volumes: ["./backend/medical_cps.db:/data/medical_cps.db"]
+    environment:
+      CADRE_W_ISO: 1.0
+      CADRE_W_LSTM: 1.0
+      CADRE_W_PRED: 1.0
+      CADRE_KAPPA: 0.15
+      CADRE_MU: 0.05
+      CADRE_BETA: 0.9
+      DEVICE_TRUST_DELTA_ATTACK: 0.15
+      DEVICE_TRUST_DELTA_CLEAN: 0.01
+      DEVICE_QUARANTINE_THRESHOLD: 0.10
+      DB_PATH: /data/medical_cps.db
+    networks:
+      - cps-network
+
+networks:
+  cps-network:
+    driver: bridge

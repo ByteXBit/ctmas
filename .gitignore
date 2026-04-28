@@ -1,0 +1,60 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+mlruns/
+mlflow.db
+
+# Databases
+*.db
+*.sqlite3
+
+# ML model weights (large binary files — run train.py to generate)
+*.pt
+*.pth
+*.onnx
+ml/norm_stats.json
+backend/ml/norm_stats.json
+
+# Node.js / Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+node_modules/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Docker volumes
+data/
+
+# Coverage
+htmlcov/
+.coverage
