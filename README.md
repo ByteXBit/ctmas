@@ -1,4 +1,4 @@
-# 🏥 Cardiac CPS — Adaptive Threat Modeling & Predictive Security System
+# Cardiac CPS — Adaptive Threat Modeling & Predictive Security System
 
 > An advanced, real-time Cyber-Physical System (CPS) for cardiac monitoring that fuses physiological telemetry with an **Adaptive Threat Modeling & Predictive Security Architecture (ATM-PSA)** — detecting, classifying, and predicting adversarial attacks on medical IoT devices.
 
@@ -6,7 +6,7 @@
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
 1. [Overview](#overview)
 2. [System Architecture](#system-architecture)
@@ -442,7 +442,7 @@ curl http://localhost:8000/api/dashboard
 
 ## Dashboard Panels Explained
 
-### 🫀 Live ECG Stream
+### Live ECG Stream
 Real-time synthetic ECG waveform rendered at 50 fps using Chart.js. The waveform shape follows a simplified PQRST complex. **Colour semantics:**
 - 🟢 Green — system secure
 - 🔴 Red — active threat or anomaly detected
@@ -451,7 +451,7 @@ The signal shape changes reactively to attack type:
 - **False Data Injection** → large noisy spikes appear
 - **DoS** → signal goes completely flat
 
-### 🛡️ Security Posture (6 Cards)
+### Security Posture (6 Cards)
 Live metric cards with coloured left-border indicators:
 - **Threat Class** — current incident type from rule-based classifier
 - **Anomaly Score** — Isolation Forest style heuristic [0,1]
@@ -460,7 +460,7 @@ Live metric cards with coloured left-border indicators:
 - **Device Trust** — current device trust percentage
 - **Pred Alert** — whether the forecast model predicts an imminent clinical threshold breach
 
-### 🎯 Unified Threat Score Gauge
+### Unified Threat Score Gauge
 Semi-circular doughnut gauge showing UTS on 0–100 scale. Color transitions: green (NOMINAL) → blue (ADVISORY) → yellow (WARNING) → red (THREAT) → bright red (CRITICAL).
 
 Below the gauge:
@@ -469,7 +469,7 @@ Below the gauge:
 - **S_iso, S_lstm, S_pred score bars** with fill proportional to max component value
 - **Detected Attack box** (when classified) showing class name + MITRE ID
 
-### 📈 Heart Rate Forecast Chart
+### Heart Rate Forecast Chart
 5-step-ahead HR prediction with 95% CI upper bound. Shows:
 - **Green line** — predicted mean HR trajectory
 - **Red shaded area** — uncertainty band (CI upper bound)
@@ -477,7 +477,7 @@ Below the gauge:
 
 Chart becomes available after the 30-reading buffer is full (~60 seconds of simulation).
 
-### 📊 Session Resilience
+### Session Resilience
 6-tile grid computed from the `prediction_log` database table:
 - **Total Ticks** — total processed windows
 - **Attack Ticks** — confirmed attack events
@@ -493,7 +493,7 @@ Per-device state from `threat_model_state` SQLite table. Trust score colour codi
 - 🔴 `<30%` — untrusted  
 - 🔴 Quarantined — trust fell below 10% threshold
 
-### 🚨 Security Event Log
+### Security Event Log
 Scrollable feed of the last 50 `ThreatIncident` records. Each card shows:
 - **Incident badge** — threat type (red for high, yellow for medium risk)
 - **Risk % and Anomaly Score**
@@ -664,7 +664,7 @@ CPS-monitor/
 
 ---
 
-## 🔬 Research Context
+## Research Context
 
 This project implements concepts from the paper:
 
